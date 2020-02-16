@@ -1,0 +1,7 @@
+lib/str_copy.o
+lib/str_diff.o
+lib/str_diffn.o
+lib/str_find.o
+lib/str_findr.o
+lib/str_len.o
+lib/str_start.o

@@ -1,0 +1,5 @@
+lib/open_append.o
+lib/open_excl.o
+lib/open_read.o
+lib/open_trunc.o
+lib/open_write.o

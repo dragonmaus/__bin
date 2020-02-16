@@ -1,0 +1,6 @@
+lib/byte_copy.o
+lib/byte_copyr.o
+lib/byte_diff.o
+lib/byte_find.o
+lib/byte_findr.o
+lib/byte_zero.o

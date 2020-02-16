@@ -1,0 +1,3 @@
+lib/error.o
+lib/error_str.o
+lib/error_temp.o

@@ -1,0 +1,4 @@
+lib/strerr.o
+lib/strerr_die.o
+lib/strerr_sys.o
+lib/strerr_warn.o

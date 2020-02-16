@@ -1,0 +1,16 @@
+lib/buffer_0.o
+lib/buffer_0small.o
+lib/buffer_1.o
+lib/buffer_1small.o
+lib/buffer_2.o
+lib/buffer_copy.o
+lib/buffer_get.o
+lib/buffer_getc.o
+lib/buffer_init.o
+lib/buffer_peek.o
+lib/buffer_put.o
+lib/buffer_putc.o
+lib/buffer_puts.o
+lib/buffer_read.o
+lib/buffer_seek.o
+lib/buffer_write.o
