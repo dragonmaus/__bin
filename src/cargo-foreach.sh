@@ -2,20 +2,7 @@
 
 set -e
 
-echo() {
-  print -R "$@"
-}
-
-warn() {
-  echo "$@" 1>&2
-}
-
-die() {
-  e="$1"
-  shift
-  warn "$@"
-  exit "$e"
-}
+. echo.sh
 
 name="$( basename "$0" .sh )"
 usage="Usage: $name [-hqv] command [args...]"

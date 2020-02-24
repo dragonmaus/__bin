@@ -1,12 +1,8 @@
 #!/bin/sh
 
-echo() {
-  print -R "$@"
-}
+set -e
 
-warn() {
-  echo "$@" 1>&2
-}
+. echo.sh
 
 cat << END
 # This is a shell archive. Save it in a file, remove anything before

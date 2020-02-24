@@ -2,9 +2,7 @@
 
 set -e
 
-echo() {
-  print -R "$@"
-}
+. echo.sh
 
 prompt="$( echo $1 )"
 shift
