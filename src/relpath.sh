@@ -2,20 +2,7 @@
 
 set -e
 
-echo() {
-  print -R "$@"
-}
-
-warn() {
-  echo "$@" 1>&2
-}
-
-die() {
-  e="$1"
-  shift
-  warn "$@"
-  exit "$e"
-}
+. echo.sh
 
 canon() {
   readlink -f "$1" 2> /dev/null && return || :
