@@ -1,8 +1,8 @@
 #!/bin/sh
 
-echo() {
-  print -R "$@"
-}
+set -e
+
+. echo.sh
 
 (
   echo '#include <sys/syscall.h>'

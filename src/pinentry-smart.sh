@@ -1,22 +1,11 @@
 #!/bin/sh
 
+set -e
+
+. echo.sh
+
 PINENTRY_GUI=/usr/bin/pinentry-dmenu
 PINENTRY_TTY=/usr/bin/pinentry-tty
-
-echo() {
-  print -R "$@"
-}
-
-warn() {
-  echo "$@" 1>&2
-}
-
-die() {
-  e="$1"
-  shift
-  warn "$@"
-  exit "$e"
-}
 
 name="$( basename "$0" .sh )"
 usage="Usage: $name [options] (-h for help)"
