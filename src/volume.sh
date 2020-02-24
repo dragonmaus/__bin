@@ -2,20 +2,7 @@
 
 set -e
 
-echo() {
-  print -r -- "$*"
-}
-
-warn() {
-  echo "$*" 1>&2
-}
-
-die() {
-  e="$1"
-  shift
-  warn "$*"
-  exit "$e"
-}
+. echo.sh
 
 getpercent() {
   amixer sget Master | sed -En 's/^  Mono: Playback [0-9]+ \[([0-9]+)%\] \[-?[0-9]*\.[0-9]*dB\] \[o[fn]+\]$/\1/p'
