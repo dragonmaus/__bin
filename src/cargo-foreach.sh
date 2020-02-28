@@ -49,6 +49,6 @@ do
   $verbose && echo ">> $dir"
   if ! ( cd "$dir"; $quiet && exec 2> /dev/null; exec "$@" ) && ! $quiet
   then
-    warn "command '$*' failed in directory '$dir'"
+    warn "command '$( echo $* )' failed in directory '$dir'"
   fi
 done
