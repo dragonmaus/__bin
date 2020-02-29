@@ -1,2 +1,2 @@
-#!/bin/sh
-exec xsel -o "$@"
+#!/data/data/com.termux/files/usr/bin/mksh
+exec termux-clipboard-get "$@"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/mksh
 
 # Disable all outputs so that --auto will pick them up
 for output in $( xrandr | cut -d ' ' -f 1 | grep -Fvx -e Screen -e '' | sort -u )

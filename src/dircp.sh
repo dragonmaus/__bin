@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/mksh
 
 set -e
 
@@ -47,4 +47,4 @@ fi
 sort="$( which pathsort sort 2> /dev/null | head -1 )"
 
 mkdir -p "$2"
-( cd "$1" && exec find . -print0 ) | "$sort" -z | ( cd "$1" && exec pax -0dwz ) | ( cd "$2" && exec pax -rz$v -p e )
+( cd "$1" && exec find . -print0 ) | "$sort" -z | ( cd "$1" && exec tar -c -f - --null --no-recursion -T - ) | ( cd "$2" && exec tar -x$v -f - )

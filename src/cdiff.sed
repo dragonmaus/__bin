@@ -1,4 +1,4 @@
-#!/usr/bin/sed -f
+#!/data/data/com.termux/files/usr/bin/sed -f
 
 /^+++/ s/^/[1m/
 /^---/ s/^/[1m/

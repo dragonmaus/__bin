@@ -1,2 +1,2 @@
-#!/bin/sh
-exec xsel -c "$@"
+#!/data/data/com.termux/files/usr/bin/mksh
+exec c < /dev/null "$@"
