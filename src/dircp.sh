@@ -44,7 +44,23 @@ fi
 [[ -e "$1" ]] || die 1 "$name: Could not find '$1': No such file or directory"
 [[ -d "$1" ]] || die 1 "$name: Could not chdir into '$1': Not a directory"
 
-sort="$( which pathsort sort 2> /dev/null | head -1 )"
+if which pathsort > /dev/null 2>&1
+then
+  sort=pathsort
+else
+  sort=sort
+fi
+
+case "$( uname )" in
+(Linux)
+  archive='tar -c -f - --null --no-recursion -T -'
+  unarchive="tar -x$v -f -"
+  ;;
+(OpenBSD)
+  archive='pax -0dwz'
+  unarchive="pax -rz$v -p e"
+  ;;
+esac
 
 mkdir -p "$2"
-( cd "$1" && exec find . -print0 ) | "$sort" -z | ( cd "$1" && exec tar -c -f - --null --no-recursion -T - ) | ( cd "$2" && exec tar -x$v -f - )
+( cd "$1" && exec find . -print0 ) | $sort -z | ( cd "$1" && exec $archive ) | ( cd "$2" && exec $unarchive )
