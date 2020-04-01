@@ -3,5 +3,5 @@
 md5 "$@"
 sha256 "$@"
 sha512 "$@"
-stat -c 'SIZE (%n) = %s' "$@"
-stat -c 'TIME (%n) = %Y' "$@"
+stat -L -c 'SIZE (%n) = %s' "$@"
+stat -L -c 'TIME (%n) = %Y' "$@"
