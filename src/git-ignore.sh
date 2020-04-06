@@ -9,7 +9,7 @@ find_gitignore() (
   do
     if [[ -d .git || -f .gitignore ]]
     then
-      echo "$( env - "PATH=$PATH" pwd )/.gitignore"
+      echo "$(env - PATH="$PATH" pwd)/.gitignore"
       return 0
     fi
     [[ . -ef .. ]] && return 1
@@ -17,22 +17,30 @@ find_gitignore() (
   done
 )
 
-name="$( basename "$0" .sh )"
-usage="Usage: $name [-h] [-f FILE] pattern [pattern...]"
+name=$(basename "$0" .sh)
+usage="Usage: $name [-glh] [-f FILE] pattern [pattern...]"
 help="$usage
 
   -f FILE  operate on FILE
+  -g       operate on \"global\" file (\$GIT_WORK_TREE/.gitignore)
+  -l       operate on \"local\" file (\$PWD/.gitignore) [default]
   -h       display this help"
 
 file=
 while getopts :f:h opt
 do
-  case "$opt" in
+  case $opt in
   (f)
-    file="$OPTARG"
+    file=$OPTARG
+    ;;
+  (g)
+    file=$(find_gitignore) || die 1 "$name: Not inside a git repository"
     ;;
   (h)
     die 0 "$help"
+    ;;
+  (l)
+    file=
     ;;
   (:)
     warn "$name: Option '$OPTARG' requires an argument"
@@ -48,7 +56,7 @@ shift $(( OPTIND - 1 ))
 
 if [[ -z "$file" ]]
 then
-  file="$( find_gitignore )" || die 1 "$name: Not inside a git repository"
+  file=$(env - PATH="$PATH" pwd)/.gitignore
 fi
 
 [[ -e "$file" ]] || touch "$file"
