@@ -4,7 +4,7 @@ c="$3"
 
 redo-ifchange "$b.o.deps"
 
-set -- $( sed -En 's;/inc/(.+)\.h$;/lib/lib\1.a;p' < "$b.o.deps" | sort -u )
+set -- $(sed -En 's;/inc/(.+)\.h$;/lib/lib\1.a;p' < "$b.o.deps" | sort -u)
 
 seen=
 while test $# -gt 0

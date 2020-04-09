@@ -1,6 +1,6 @@
 set -- "$1" "$2.s" "$3"
 
-home="$( cd "$( dirname "$0" )" && env - "PATH=$PATH" pwd )"
+home="$(cd "$(dirname "$0")" && env - PATH="$PATH" pwd)"
 
 redo-ifchange "$2"
 

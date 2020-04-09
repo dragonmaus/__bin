@@ -4,7 +4,7 @@ set -e
 
 . echo.sh
 
-name="$( basename "$0" .sh )"
+name=$(basename "$0" .sh)
 usage="Usage: $name [-hv] from to"
 help="$usage
 
@@ -16,7 +16,7 @@ Recursively copy a directory while preserving permissions.
 v=
 while getopts :hv opt
 do
-  case "$opt" in
+  case $opt in
   (h)
     die 0 "$help"
     ;;
@@ -33,7 +33,7 @@ do
     ;;
   esac
 done
-shift $(( OPTIND - 1 ))
+shift $((OPTIND - 1))
 
 if [[ $# -lt 2 ]]
 then
@@ -51,7 +51,7 @@ else
   sort=sort
 fi
 
-case "$( uname )" in
+case $(uname) in
 (Linux)
   archive='tar -c -f - --null --no-recursion -T -'
   unarchive="tar -x$v -f -"
@@ -63,4 +63,4 @@ case "$( uname )" in
 esac
 
 mkdir -p "$2"
-( cd "$1" && exec find . -print0 ) | $sort -z | ( cd "$1" && exec $archive ) | ( cd "$2" && exec $unarchive )
+(cd "$1" && exec find . -print0) | $sort -z | (cd "$1" && exec $archive) | (cd "$2" && exec $unarchive)
