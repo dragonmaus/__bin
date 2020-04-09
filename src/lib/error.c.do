@@ -6,7 +6,7 @@ i=0
 while IFS='	' read -r name errno temp str
 do
   test "x$name" = x- && continue
-  i="$( expr -- "$i" - 1 )"
+  i=$(expr -- $i - 1)
   cat >> "$3" << END
 
 int $name =

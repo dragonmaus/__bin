@@ -1,6 +1,6 @@
 set -- "$1" "$2.s" "$3"
 
-home="$( cd "$( dirname "$0" )" && env - "PATH=$PATH" pwd )"
+home="$(cd "$(dirname "$0")" && env - PATH="$PATH" pwd)"
 
 redo-ifchange "$2.exe.deps"
 xargs redo-ifchange "$home/bin/load" "$home/bin/strip" "$2.o" < "$2.exe.deps"
