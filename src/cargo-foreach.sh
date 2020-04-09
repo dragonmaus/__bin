@@ -4,7 +4,7 @@ set -e
 
 . echo.sh
 
-name="$( basename "$0" .sh )"
+name=$(basename "$0" .sh)
 usage="Usage: $name [-hqv] command [args...]"
 help="$usage
 
@@ -19,7 +19,7 @@ quiet=false
 verbose=false
 while getopts :hqv opt
 do
-  case "$opt" in
+  case $opt in
   (h)
     die 0 "$help"
     ;;
@@ -39,16 +39,14 @@ do
     ;;
   esac
 done
-shift $(( OPTIND - 1 ))
+shift $((OPTIND - 1))
 
-IFS='
-'
-for dir in $( ls -A )
+ls -A | while IFS= read -r dir
 do
   [[ -d "$dir" && -f "$dir/Cargo.toml" ]] || continue
   $verbose && echo ">> $dir"
-  if ! ( cd "$dir"; $quiet && exec 2> /dev/null; exec "$@" ) && ! $quiet
+  if ! (cd "$dir"; $quiet && exec 2> /dev/null; exec "$@") && ! $quiet
   then
-    warn "command '$( echo $* )' failed in directory '$dir'"
+    warn "command '$(echo $*)' failed in directory '$dir'"
   fi
 done
