@@ -1,5 +1,5 @@
 redo-ifchange compile.binary
-binary="$( basename "$( head -1 < compile.binary )" )"
+binary=$(basename "$(head -1 < compile.binary)")
 
 case "$binary" in
 (musl-clang)

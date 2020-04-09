@@ -20,13 +20,13 @@ done
 echo '#'
 
 mkdirs() {
-  d="$( dirname "$1" )"
-  [[ $d = . || $d = / ]] && return
+  d=$(dirname "$1")
+  [[ "$d" = . || "$d" = / ]] && return
   echo "mkdir -p '$d'"
 }
 
 for f do
-  q="$( echo "$f" | sed "s/'/'\\\\''/g" )"
+  q=$(echo "$f" | sed "s/'/'\\\\''/g")
   echo "echo x - '$q'"
   if [[ -f "$f" ]]
   then
@@ -37,7 +37,7 @@ for f do
   elif [[ -h "$f" ]]
   then
     mkdirs "$q"
-    t="$( readlink "$f" | sed "s/'/'\\\\''/g" )"
+    t="$(readlink "$f" | sed "s/'/'\\\\''/g")"
     echo "ln -s '$t' '$q'"
   elif [[ -d "$f" ]]
   then
