@@ -8,8 +8,8 @@ getpercent() {
   amixer sget Master \
   | sed -En \
     -e 's/^  Mono: Playback [0-9]+ \[([0-9]+)%\] \[-?[0-9]*\.[0-9]*dB\] \[o[fn]+\]$/\1/p' \
-    -e 's/^  Front Left: Playback [0-9]+ \[([0-9]+)%\] \[-?[0-9]*\.[0-9]*dB\] \[o[fn]+\]$/\1/p' \
-    -e 's/^  Front Right: Playback [0-9]+ \[([0-9]+)%\] \[-?[0-9]*\.[0-9]*dB\] \[o[fn]+\]$/\1/p' \
+    -e 's/^  Front Left: Playback [0-9]+ \[([0-9]+)%\] \[o[fn]+\]$/\1/p' \
+    -e 's/^  Front Right: Playback [0-9]+ \[([0-9]+)%\] \[o[fn]+\]$/\1/p' \
   | head -1
 }
 
