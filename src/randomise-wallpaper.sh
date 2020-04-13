@@ -1,15 +1,15 @@
 #!/bin/sh
 
-cd "$HOME/Pictures/Wallpapers"
+cd ~/Pictures/Wallpapers
 
-current="$( readlink .current )"
+current=$(readlink .current)
 
-random="$current"
+random=$current
 while [[ "$random" = "$current" ]]
 do
-  random="$( find -L .current-res -type f 2> /dev/null | shuf | head -1 )"
+  random=$(find -L .current-res -type f 2> /dev/null | shuf | head -1)
 done
 
-ln -fs "$random" .current
+ln -fns "$random" .current
 
 [[ "$1" = -s ]] && exec set-wallpaper .current

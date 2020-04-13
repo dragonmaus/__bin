@@ -2,10 +2,10 @@
 
 case "$1" in
 (headset|speaker)
-  exec ln -fsv ".asoundrc.$1" "$HOME/.asoundrc"
+  exec ln -fnsv .asoundrc.$1 ~/.asoundrc
   ;;
 (toggle)
-  case "$( readlink "$HOME/.asoundrc" )" in
+  case "$(readlink ~/.asoundrc)" in
   (.asoundrc.headset)
     exec "$0" speaker
     ;;

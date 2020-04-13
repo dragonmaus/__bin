@@ -10,11 +10,11 @@ pass "$@" | {
   do
     case "$key" in
     (uri)
-      host="${value#*://}"
-      host="${host%%/*}"
+      host=${value#*://}
+      host=${host%%/*}
       ;;
     (user)
-      user="$value"
+      user=$value
       ;;
     esac
   done
