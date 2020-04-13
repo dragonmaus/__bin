@@ -4,7 +4,7 @@ set -e
 
 . echo.sh
 
-name="$( basename "$0" .sh )"
+name=$(basename "$0" .sh)
 usage="Usage: $name [-Uhtu] [-- [dmenu args]]"
 help="$usage
 
@@ -46,13 +46,13 @@ do
     ;;
   esac
 done
-shift $(( OPTIND - 1 ))
+shift $((OPTIND - 1))
 
-sort="$( which pathsort sort 2> /dev/null | head -1 )"
+sort=$(which pathsort sort 2> /dev/null | head -1)
 
-prefix="${PASSWORD_STORE_DIR:-"$HOME/.password-store"}"
-key="$( ( cd "$prefix" && find . -not \( -name '.[!.]*' -prune \) -type f ) | sed -En 's:^\./(.+)\.gpg$:\1:p' | "$sort" -u | dmenu "$@" )"
-[[ -n "$key" ]] || exit 1
+prefix=${PASSWORD_STORE_DIR:-~/.password-store}
+key=$( (cd "$prefix" && find . -not \( -name '.[!.]*' -prune \) -type f) | sed -En 's:^\./(.+)\.gpg$:\1:p' | $sort -u | dmenu "$@")
+[[ -n "$key" ]]
 
 case "$PASSWORD_STORE_X_SELECTION" in
 (primary)
@@ -66,7 +66,7 @@ case "$PASSWORD_STORE_X_SELECTION" in
   ;;
 esac
 
-case "$mode" in
+case $mode in
 (copy)
   pass show "$key" | sed -n "$filter" | xsel -$selection
   ;;
@@ -74,6 +74,6 @@ case "$mode" in
   pass show "$key" | sed -n "$filter"
   ;;
 (type)
-  pass show "$key" | sed -n "$filter" | ( IFS= read -r pass && print -nr -- "$pass" ) | xdotool type --clearmodifiers --file -
+  pass show "$key" | sed -n "$filter" | (IFS= read -r pass && print -nr -- "$pass") | xdotool type --clearmodifiers --file -
   ;;
 esac

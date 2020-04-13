@@ -7,10 +7,10 @@ set -e
 PINENTRY_GUI=/usr/bin/pinentry-dmenu
 PINENTRY_TTY=/usr/bin/pinentry-tty
 
-name="$( basename "$0" .sh )"
+name=$(basename "$0" .sh)
 usage="Usage: $name [options] (-h for help)"
-help="$( pinentry-tty --help 2> /dev/null | sed "s/pinentry-tty/$name/g" )"
-args="$( getopt -l colors:,debug,display:,help,lc-ctype:,lc-messages:,no-global-grab,parent-wid:,timeout:,ttyalert:,ttyname:,ttytype: -n "$name" -o C:D:M:N:T:W:a:c:dgo: -s sh -- "$@" )" || die 100 "$usage"
+help=$(pinentry-tty --help 2> /dev/null | sed "s/pinentry-tty/$name/g")
+args=$(getopt -l colors:,debug,display:,help,lc-ctype:,lc-messages:,no-global-grab,parent-wid:,timeout:,ttyalert:,ttyname:,ttytype: -n "$name" -o C:D:M:N:T:W:a:c:dgo: -s sh -- "$@") || die 100 "$usage"
 eval set -- "$args"
 
 while [[ $# -gt 0 ]]
@@ -20,7 +20,7 @@ do
     shift
     ;;
   (-D|--display)
-    export DISPLAY="$2"
+    export DISPLAY=$2
     shift
     ;;
   (-M|--lc-messages)
