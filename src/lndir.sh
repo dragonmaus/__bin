@@ -53,6 +53,49 @@ shift $((OPTIND - 1))
 [[ -n "$2" ]] || set -- "$1" .
 [[ -d "$2" ]] || mkdir -pv "$2"
 
+abspath() {
+  [[ "$*" = /* ]] || set -- "$PWD/$*"
+  typeset IFS=/ e p
+  for e in $*
+  do
+    case "$e" in
+    (''|.)
+      ;;
+    (..)
+      p=${p%/*}
+      ;;
+    (*)
+      p=$p/$e
+      ;;
+    esac
+  done
+  echo "$p"
+}
+
+relpath() {
+  typeset a ae b be
+  a=$(abspath "$1")
+  b=$(abspath "$2")
+  a=${a%/*}/
+
+  # strip common prefix
+  while :
+  do
+    ae=${a%%/*}
+    be=${b%%/*}
+    if [[ "$ae" = "$be" ]]
+    then
+      a=${a#*/}
+      b=${b#*/}
+    else
+      break
+    fi
+  done
+  a=$(set --; IFS=/; for e in $a; do set -- "$@" ..; done; echo "$*")
+  [[ -n "$a" ]] && a=$a/
+  echo "$a$b"
+}
+
 ls -A "$1" | while IFS= read -r f
 do
   [[ "$1/$f" -ef "$2" ]] && continue
@@ -75,11 +118,11 @@ do
       continue
     fi
 
-    if [[ $r -eq 0 && "$1/$f" = /* ]]
-    then
-      ln -fns $v "$1/$f" "$2/$f"
-    else
-      ln -fnrs $v "$1/$f" "$2/$f"
-    fi
+    l=$2/$f
+    t=$1/$f
+    [[ "$t" = /* ]] || r=1
+    [[ $r -eq 1 ]] && t=$(relpath "$l" "$t")
+
+    ln -fns $v "$t" "$l"
   fi
 done
