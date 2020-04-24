@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/Pictures/Wallpapers
+cd "$(xdg-user-dir BACKGROUNDS 2> /dev/null || echo ~/Pictures/Wallpapers)"
 
 current=$(readlink .current)
 
