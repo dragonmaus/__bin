@@ -4,35 +4,40 @@ set -e
 
 . echo.sh
 
-canon() {
-  readlink -f "$1" 2> /dev/null && return || :
-  local p=$1
-  [[ "$p" = /* ]] || p=$PWD/$p
-  p=$(echo "$p" | sed -E -e ': loop' -e 's:/+:/:g' -e 's:/\./:/:g' -e 's:/[^/]+/\.\./:/:g' -e 's:^/\.\./:/:' -e 's:/[^/]+/\.\.$::g' -e 't loop')
-  echo "$p"
-}
+name=$(basename "$0" .sh)
+usage="Usage: $name [from] to"
 
-ascend=
-case "$#" in
-(1)
-  from=$(canon "$PWD")
-  to=$(canon "$1")
-  ;;
-(2)
-  from=$(canon "$1")
-  to=$(canon "$2")
-  ;;
-(*)
-  die 111 'Usage: relpath [from] to'
-  ;;
-esac
+[[ $# -eq 1 ]] && set -- . "$1"
+[[ $# -eq 2 ]] || die 1 "$usage"
 
-[[ -e "$from" && ! -d "$from" ]] && from=$(dirname "$from")
+a=$(abspath "$1")
+b=$(abspath "$2")
+a=${a%/*}/
 
-while [[ "$from" != / && "$to" != "$from"/* ]]
+# strip common prefix
+while :
 do
-  ascend=../$ascend
-  from=$(dirname "$from")
+  ae=${a%%/*}
+  be=${b%%/*}
+  if [[ "$ae" = "$be" ]]
+  then
+    a=${a#*/}
+    b=${b#*/}
+  else
+    break
+  fi
 done
 
-echo "$ascend${to#"${from%/}/"}"
+# transform foo/bar/baz into ../../..
+a=$(
+  set --
+  IFS=/
+  for e in $a
+  do
+    set -- "$@" ..
+  done
+  echo "$*"
+)
+[[ -n "$a" ]] && a=$a/
+
+echo "$a$b"
