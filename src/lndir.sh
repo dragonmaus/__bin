@@ -18,7 +18,7 @@ Recursively symlink files in a directory tree.
 opts=
 f=0
 r=0
-v=-v
+v=1
 while getopts :fhqr opt
 do
   opts="$opts -$opt"
@@ -30,7 +30,7 @@ do
     die 0 "$help"
     ;;
   (q)
-    v=
+    v=0
     ;;
   (r)
     r=1
@@ -108,13 +108,13 @@ do
     then
       if [[ $force -eq 0 ]]
       then
-        [[ "$v" = -v ]] && warn "$name: Not overwriting '$2/$f'"
+        [[ $v -eq 1 ]] && warn "$name: Not overwriting '$2/$f'"
         continue
       fi
       rm -f "$2/$f"
     elif [[ -d "$2/$f" ]]
     then
-      [[ "$v" = -v ]] && warn "$name: '$2/$f' is a directory; skipping"
+      [[ $v -eq 1 ]] && warn "$name: '$2/$f' is a directory; skipping"
       continue
     fi
 
@@ -123,6 +123,7 @@ do
     [[ "$t" = /* ]] || r=1
     [[ $r -eq 1 ]] && t=$(relpath "$l" "$t")
 
-    ln -fns $v "$t" "$l"
+    ln -fns "$t" "$l"
+    [[ $v -eq 1 ]] && echo "'$l' -> '$t'"
   fi
 done
