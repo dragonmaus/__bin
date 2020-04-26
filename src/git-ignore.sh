@@ -67,7 +67,7 @@ rm -f "$file{tmp}"
 for line
 do
   echo "$line"
-done | cat "$file" - | "$sort" -u | grep . > "$file{tmp}"
+done | cat "$file" - | $sort -u | grep . > "$file{tmp}"
 
 rm -f "$file{new}"
 {
