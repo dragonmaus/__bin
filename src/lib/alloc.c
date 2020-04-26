@@ -1,4 +1,4 @@
-#include <malloc.h>
+#include <stdlib.h>
 #include "alloc.h"
 #include "error.h"
 
