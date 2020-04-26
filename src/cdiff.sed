@@ -1,27 +1,27 @@
 #!/usr/bin/sed -f
 
-/^+++/ s/^/\x1b[1m/
-/^---/ s/^/\x1b[1m/
+/^+++/ s/^/[1m/
+/^---/ s/^/[1m/
 
-/^+/ s/^/\x1b[32m/
-/^-/ s/^/\x1b[31m/
-/^@/ s/^/\x1b[36m/
+/^+/ s/^/[32m/
+/^-/ s/^/[31m/
+/^@/ s/^/[36m/
 
-/^Binary files .* are identical$/ s/^/\x1b[1m/
-/^Files .* are identical$/ s/^/\x1b[1m/
+/^Binary files .* are identical$/ s/^/[1m/
+/^Files .* are identical$/ s/^/[1m/
 
-/^\\/ s/^/\x1b[35m/
+/^\\/ s/^/[35m/
 
-/^diff / s/^/\x1b[1m/
+/^diff / s/^/[1m/
 
 t end
-s/^[^	 ]/\x1b[1m&/
+s/^[^	 ]/[1m&/
 : end
 
-s/ \{1,\}$/\x1b[1;30m&/
+s/ \{1,\}$/[1;30m&/
 
 : loop
 s/ \( *\)$/+\1/
 t loop
 
-s/$/\x1b[m/
+s/$/[m/
