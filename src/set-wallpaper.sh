@@ -1,17 +1,2 @@
-#!/bin/sh
-
-mode=fill
-while getopts :cfmst opt
-do
-  case $opt in
-  (c) mode=center ;;
-  (f) mode=fill   ;;
-  (m) mode=max    ;;
-  (s) mode=scale  ;;
-  (t) mode=tile   ;;
-  (*) break       ;;
-  esac
-done
-shift $((OPTIND - 1))
-
-exec feh --no-fehbg --bg-$mode "$@"
+#!/data/data/com.termux/files/usr/bin/mksh
+termux-wallpaper -l -f "$1" && exec termux-wallpaper -f "$1"
