@@ -1,6 +1,6 @@
 #!/bin/sh
 
-d=
+d=0
 while getopts :d opt
 do
   case $opt in
