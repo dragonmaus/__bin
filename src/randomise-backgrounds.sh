@@ -1,11 +1,18 @@
 #!/bin/sh
 
+. echo.sh
+
+L=0
 d=0
 l=0
 s=0
 while getopts :dls opt
 do
   case $opt in
+  (L)
+    L=1
+    s=0
+    ;;
   (d)
     d=1
     ;;
@@ -13,6 +20,7 @@ do
     l=1
     ;;
   (s)
+    L=0
     s=1
     ;;
   (*)
@@ -22,20 +30,29 @@ do
 done
 shift $((OPTIND - 1))
 
+[[ $L -eq 1 ]] && l=0
+
 cd "$(xdg-user-dir BACKGROUNDS)"
 
 desktop=$(head -1 < .current-desktop)
-lockscreen=$(head -1 < .current-lockscreen)
+lockscreen=
+[[ $L -eq 1 ]] && lockscreen=$(head -1 < .current-lockscreen)
 
 find *x* -type f 2> /dev/null | grep -Fvx -e "$desktop" -e "$lockscreen" | shuf | head -2 | (
   IFS= read -r desktop
   IFS= read -r lockscreen
 
-  [[ $s -eq 1 ]] && lockscreen=$desktop
+  echo "$desktop" > .current-desktop{new}
+  mv -f .current-desktop{new} .current-desktop
 
-  ln -fns "$desktop" .current-desktop
-  ln -fns "$lockscreen" .current-lockscreen
+  if [[ $L -eq 0 ]]
+  then
+    [[ $s -eq 1 ]] && lockscreen=$desktop
+
+    echo "$lockscreen" > .current-lockscreen{new}
+    mv -f .current-lockscreen{new} .current-lockscreen
+  fi
 )
 
-[[ $d -eq 1 ]] && set-desktop .current-desktop
-[[ $l -eq 1 ]] && set-lockscreen .current-lockscreen
+[[ $d -eq 1 ]] && set-desktop "$(head -1 < .current-desktop)"
+[[ $l -eq 1 ]] && set-lockscreen "$(head -1 < .current-lockscreen)"
