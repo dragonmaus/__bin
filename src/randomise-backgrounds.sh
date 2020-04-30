@@ -6,7 +6,7 @@ L=0
 d=0
 l=0
 s=0
-while getopts :dls opt
+while getopts :Ldls opt
 do
   case $opt in
   (L)
