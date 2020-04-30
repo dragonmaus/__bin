@@ -1,8 +1,8 @@
 #!/bin/sh
 
-d=
-l=
-s=
+d=0
+l=0
+s=0
 while getopts :dls opt
 do
   case $opt in
