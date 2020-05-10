@@ -54,5 +54,11 @@ find *x* -type f 2> /dev/null | grep -Fvx -e "$desktop" -e "$lockscreen" | shuf 
   fi
 )
 
-[[ $d -eq 1 ]] && set-desktop "$(head -1 < .current-desktop)"
-[[ $l -eq 1 ]] && set-lockscreen "$(head -1 < .current-lockscreen)"
+if [[ $d -eq 1 ]]
+then
+  set-desktop "$(head -1 < .current-desktop)"
+fi
+if [[ $l -eq 1 ]]
+then
+  set-lockscreen "$(head -1 < .current-lockscreen)"
+fi
