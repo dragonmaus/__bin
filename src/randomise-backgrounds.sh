@@ -38,7 +38,7 @@ desktop=$(head -1 < .current-desktop)
 lockscreen=
 [[ $L -eq 1 ]] && lockscreen=$(head -1 < .current-lockscreen)
 
-find *x* -type f 2> /dev/null | grep -Fvx -e "$desktop" -e "$lockscreen" | shuf | head -2 | (
+find . -type f -not -name .current-desktop 2> /dev/null | grep -Fvx -e "$desktop" -e "$lockscreen" | shuf | head -2 | (
   IFS= read -r desktop
   IFS= read -r lockscreen
 
