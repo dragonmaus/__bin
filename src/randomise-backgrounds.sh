@@ -18,7 +18,7 @@ cd "$(xdg-user-dir BACKGROUNDS)"
 
 desktop=$(readlink .current-desktop 2> /dev/null)
 
-find -L .current -type f 2> /dev/null | grep -Fvx -e "$desktop" | sort -R | head -1 | (
+find -L . -type f -not -name .current-desktop 2> /dev/null | grep -Fvx -e "$desktop" | sort -R | head -1 | (
   IFS= read -r desktop
 
   ln -fns "$desktop" .current-desktop
