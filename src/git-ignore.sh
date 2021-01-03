@@ -61,13 +61,11 @@ fi
 
 [[ -e "$file" ]] || touch "$file"
 
-which pathsort > /dev/null 2>&1 && sort=pathsort || sort=sort
-
 rm -f "$file{tmp}"
 for line
 do
   echo "$line"
-done | cat "$file" - | $sort -u | grep . > "$file{tmp}"
+done | cat "$file" - | sort -u | grep . > "$file{tmp}"
 
 rm -f "$file{new}"
 {
