@@ -1,8 +1,8 @@
 #include <fcntl.h>
 #include "open.h"
 
-  int
+	int
 open_write(const char *fn)
 {
-  return open(fn, O_WRONLY | O_NONBLOCK, 0);
+	return open(fn, O_WRONLY | O_NONBLOCK, 0);
 }

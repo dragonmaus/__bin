@@ -8,8 +8,8 @@ deps=
 objs=
 while IFS= read -r obj
 do
-  deps="$deps $obj.deps"
-  objs="$objs $obj"
+    deps="$deps $obj.deps"
+    objs="$objs $obj"
 done < "$2.list"
 
 redo-ifchange $objs $deps

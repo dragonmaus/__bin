@@ -1,7 +1,7 @@
 #include "stralloc.h"
 
-  unsigned int
+	unsigned int
 stralloc_copy(stralloc *to, const stralloc *from)
 {
-  return stralloc_copyb(to, from->len, from->s);
+	return stralloc_copyb(to, from->len, from->s);
 }

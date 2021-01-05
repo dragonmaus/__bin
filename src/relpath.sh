@@ -17,26 +17,26 @@ a=${a%/*}/
 # strip common prefix
 while :
 do
-  ae=${a%%/*}
-  be=${b%%/*}
-  if [[ "$ae" = "$be" ]]
-  then
-    a=${a#*/}
-    b=${b#*/}
-  else
-    break
-  fi
+    ae=${a%%/*}
+    be=${b%%/*}
+    if [[ "$ae" = "$be" ]]
+    then
+        a=${a#*/}
+        b=${b#*/}
+    else
+        break
+    fi
 done
 
 # transform foo/bar/baz into ../../..
 a=$(
-  set --
-  IFS=/
-  for e in $a
-  do
-    set -- "$@" ..
-  done
-  echo "$*"
+    set --
+    IFS=/
+    for e in $a
+    do
+        set -- "$@" ..
+    done
+    echo "$*"
 )
 [[ -n "$a" ]] && a=$a/
 
