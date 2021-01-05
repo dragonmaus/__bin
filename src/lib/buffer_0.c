@@ -1,10 +1,10 @@
 #include "buffer.h"
 
-  int
+	int
 buffer_0_read(unsigned int fd, char *buf, unsigned int len)
 {
-  if (buffer_flush(buffer_1) == -1) return -1;
-  return buffer_read(fd, buf, len);
+	if (buffer_flush(buffer_1) == -1) return -1;
+	return buffer_read(fd, buf, len);
 }
 
 char buffer_0_space[BUFFER_INSIZE];

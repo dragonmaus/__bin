@@ -1,8 +1,8 @@
 #include <fcntl.h>
 #include "open.h"
 
-  int
+	int
 open_excl(const char *fn)
 {
-  return open(fn, O_WRONLY | O_CREAT | O_EXCL | O_NONBLOCK, 0644);
+	return open(fn, O_WRONLY | O_CREAT | O_EXCL | O_NONBLOCK, 0644);
 }

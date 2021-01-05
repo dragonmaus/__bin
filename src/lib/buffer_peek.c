@@ -1,7 +1,7 @@
 #include "buffer.h"
 
-  char *
+	char *
 buffer_peek(const buffer *s)
 {
-  return s->x + s->n;
+	return s->x + s->n;
 }

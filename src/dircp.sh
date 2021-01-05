@@ -10,35 +10,35 @@ help="$usage
 
 Recursively copy a directory while preserving permissions.
 
-  -h   display this help
-  -v   print files as they are copied"
+-h   display this help
+-v   print files as they are copied"
 
 v=
 while getopts :hv opt
 do
-  case $opt in
-  (h)
-    die 0 "$help"
-    ;;
-  (v)
-    v=v
-    ;;
-  (:)
-    warn "$name: Option '$OPTARG' requires an argument"
-    die 100 "$usage"
-    ;;
-  (\?)
-    warn "$name: Unknown option '$OPTARG'"
-    die 100 "$usage"
-    ;;
-  esac
+    case $opt in
+    (h)
+        die 0 "$help"
+        ;;
+    (v)
+        v=v
+        ;;
+    (:)
+        warn "$name: Option '$OPTARG' requires an argument"
+        die 100 "$usage"
+        ;;
+    (\?)
+        warn "$name: Unknown option '$OPTARG'"
+        die 100 "$usage"
+        ;;
+    esac
 done
 shift $((OPTIND - 1))
 
 if [[ $# -lt 2 ]]
 then
-  warn "$name: Missing argument(s)"
-  die 100 "$usage"
+    warn "$name: Missing argument(s)"
+    die 100 "$usage"
 fi
 
 [[ -e "$1" ]] || die 1 "$name: Could not find '$1': No such file or directory"
@@ -46,20 +46,20 @@ fi
 
 if which pathsort > /dev/null 2>&1
 then
-  sort=pathsort
+    sort=pathsort
 else
-  sort=sort
+    sort=sort
 fi
 
 case $(uname) in
 (Linux)
-  archive='tar -c -f - --null --no-recursion -T -'
-  unarchive="tar -x$v -f -"
-  ;;
+    archive='tar -c -f - --null --no-recursion -T -'
+    unarchive="tar -x$v -f -"
+    ;;
 (OpenBSD)
-  archive='pax -0dwz'
-  unarchive="pax -rz$v -p e"
-  ;;
+    archive='pax -0dwz'
+    unarchive="pax -rz$v -p e"
+    ;;
 esac
 
 mkdir -p "$2"
