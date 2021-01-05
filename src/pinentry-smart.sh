@@ -15,51 +15,51 @@ eval set -- "$args"
 
 while [[ $# -gt 0 ]]
 do
-  case "$1" in
-  (-C|--lc-ctype)
+    case "$1" in
+    (-C|--lc-ctype)
+        shift
+        ;;
+    (-D|--display)
+        export DISPLAY=$2
+        shift
+        ;;
+    (-M|--lc-messages)
+        shift
+        ;;
+    (-N|--ttytype)
+        shift
+        ;;
+    (-T|--ttyname)
+        shift
+        ;;
+    (-W|--parent-wid)
+        shift
+        ;;
+    (-a|--ttyalert)
+        shift
+        ;;
+    (-c|--colors)
+        shift
+        ;;
+    (-d|--debug)
+        ;;
+    (-g|--no-global-grab)
+        ;;
+    (-h|--help)
+        die 0 "$help"
+        ;;
+    (-o|--timeout)
+        shift
+        ;;
+    (--)
+        shift
+        break
+        ;;
+    (*)
+        break
+        ;;
+    esac
     shift
-    ;;
-  (-D|--display)
-    export DISPLAY=$2
-    shift
-    ;;
-  (-M|--lc-messages)
-    shift
-    ;;
-  (-N|--ttytype)
-    shift
-    ;;
-  (-T|--ttyname)
-    shift
-    ;;
-  (-W|--parent-wid)
-    shift
-    ;;
-  (-a|--ttyalert)
-    shift
-    ;;
-  (-c|--colors)
-    shift
-    ;;
-  (-d|--debug)
-    ;;
-  (-g|--no-global-grab)
-    ;;
-  (-h|--help)
-    die 0 "$help"
-    ;;
-  (-o|--timeout)
-    shift
-    ;;
-  (--)
-    shift
-    break
-    ;;
-  (*)
-    break
-    ;;
-  esac
-  shift
 done
 eval set -- "$args"
 

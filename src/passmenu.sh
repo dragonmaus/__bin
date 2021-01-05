@@ -20,31 +20,31 @@ filter=1p
 mode=show
 while getopts :Uhtu opt
 do
-  case $opt in
-  (U)
-    filter='s/^uri://p'
-    ;;
-  (c)
-    mode=copy
-    ;;
-  (h)
-    die 0 "$help"
-    ;;
-  (t)
-    mode=type
-    ;;
-  (u)
-    filter='s/^user://p'
-    ;;
-  (:)
-    warn "$name: Option '$OPTARG' requires an argument"
-    die 100 "$usage"
-    ;;
-  (\?)
-    warn "$name: Unknown option '$OPTARG'"
-    die 100 "$usage"
-    ;;
-  esac
+    case $opt in
+    (U)
+        filter='s/^uri://p'
+        ;;
+    (c)
+        mode=copy
+        ;;
+    (h)
+        die 0 "$help"
+        ;;
+    (t)
+        mode=type
+        ;;
+    (u)
+        filter='s/^user://p'
+        ;;
+    (:)
+        warn "$name: Option '$OPTARG' requires an argument"
+        die 100 "$usage"
+        ;;
+    (\?)
+        warn "$name: Unknown option '$OPTARG'"
+        die 100 "$usage"
+        ;;
+    esac
 done
 shift $((OPTIND - 1))
 
@@ -56,24 +56,24 @@ key=$( (cd "$prefix" && find . -not \( -name '.[!.]*' -prune \) -type f) | sed -
 
 case "$PASSWORD_STORE_X_SELECTION" in
 (primary)
-  selection=p
-  ;;
+    selection=p
+    ;;
 (secondary)
-  selection=s
-  ;;
+    selection=s
+    ;;
 (*)
-  selection=b
-  ;;
+    selection=b
+    ;;
 esac
 
 case $mode in
 (copy)
-  pass show "$key" | sed -n "$filter" | xsel -$selection
-  ;;
+    pass show "$key" | sed -n "$filter" | xsel -$selection
+    ;;
 (show)
-  pass show "$key" | sed -n "$filter"
-  ;;
+    pass show "$key" | sed -n "$filter"
+    ;;
 (type)
-  pass show "$key" | sed -n "$filter" | (IFS= read -r pass && print -nr -- "$pass") | xdotool type --clearmodifiers --file -
-  ;;
+    pass show "$key" | sed -n "$filter" | (IFS= read -r pass && print -nr -- "$pass") | xdotool type --clearmodifiers --file -
+    ;;
 esac
