@@ -2,11 +2,11 @@
 #define BUFFER_H
 
 typedef struct buffer {
-  char *x;
-  unsigned int p;
-  unsigned int n;
-  unsigned int fd;
-  int (*op)();
+	char *x;
+	unsigned int p;
+	unsigned int n;
+	unsigned int fd;
+	int (*op)();
 } buffer;
 
 #define BUFFER_INIT(op,fd,buf,len) { (buf), 0, (len), (fd), (op) }
