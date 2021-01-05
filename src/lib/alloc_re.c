@@ -1,15 +1,15 @@
 #include "alloc.h"
 #include "byte.h"
 
-  unsigned int
+	unsigned int
 alloc_re(char **x, unsigned int m, unsigned int n)
 {
-  char *y;
+	char *y;
 
-  y = alloc(n);
-  if (!y) return 0;
-  byte_copy(y, *x, m);
-  alloc_free(*x);
-  *x = y;
-  return 1;
+	y = alloc(n);
+	if (!y) return 0;
+	byte_copy(y, *x, m);
+	alloc_free(*x);
+	*x = y;
+	return 1;
 }

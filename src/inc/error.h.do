@@ -19,8 +19,8 @@ END
 
 while IFS='	' read -r name errno temp str
 do
-  test "x$name" = x- && continue
-  cat >> "$3" << END
+    test "x$name" = x- && continue
+    cat >> "$3" << END
 extern int $name;
 END
 done < ../lib/error.list

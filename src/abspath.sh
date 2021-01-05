@@ -16,16 +16,16 @@ IFS=/
 p=
 for e in $1
 do
-  case $e in
-  (''|.)
-    ;;
-  (..)
-    p=${p%/*}
-    ;;
-  (*)
-    p=$p/$e
-    ;;
-  esac
+    case $e in
+    (''|.)
+        ;;
+    (..)
+        p=${p%/*}
+        ;;
+    (*)
+        p=$p/$e
+        ;;
+    esac
 done
 
 echo "$p"

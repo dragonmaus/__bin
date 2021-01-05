@@ -6,30 +6,30 @@ cat >> "$3" << END
 
 #define X(n,s) if (e == n) return s
 
-  const char *
+	const char *
 error_str(int e)
 {
-  X(0, "no error");
+	X(0, "no error");
 END
 
 while IFS='	' read -r name errno temp str
 do
-  if test "x$name" = x-
-  then
-    cat >> "$3" << END
+    if test "x$name" = x-
+    then
+        cat >> "$3" << END
 #ifdef $errno
-  X($errno, "$str");
+	X($errno, "$str");
 #endif
 END
-  else
-    cat >> "$3" << END
-  X($name, "$str");
+    else
+        cat >> "$3" << END
+	X($name, "$str");
 END
-  fi
+    fi
 done < error.list
 
 cat >> "$3" << END
-  return "unknown error";
+	return "unknown error";
 }
 END
 
