@@ -1,4 +1,4 @@
-#!/usr/bin/sed -f
+#!/bin/sed -f
 
 /^+++/ s/^/\x1b[1m/
 /^---/ s/^/\x1b[1m/
