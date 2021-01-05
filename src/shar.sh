@@ -14,37 +14,37 @@ cat << END
 #
 END
 for f do
-  echo "#	$f"
+    echo "#	$f"
 done
 
 echo '#'
 
 mkdirs() {
-  d=$(dirname "$1")
-  [[ "$d" = . || "$d" = / ]] && return
-  echo "mkdir -p '$d'"
+    d=$(dirname "$1")
+    [[ "$d" = . || "$d" = / ]] && return
+    echo "mkdir -p '$d'"
 }
 
 for f do
-  q=$(echo "$f" | sed "s/'/'\\\\''/g")
-  echo "echo x - '$q'"
-  if [[ -f "$f" ]]
-  then
-    mkdirs "$q"
-    echo "sed 's/^X//' > '$q' << 'END-of-$q'"
-    sed 's/^/X/' < "$f"
-    echo "END-of-$q"
-  elif [[ -h "$f" ]]
-  then
-    mkdirs "$q"
-    t="$(readlink "$f" | sed "s/'/'\\\\''/g")"
-    echo "ln -s '$t' '$q'"
-  elif [[ -d "$f" ]]
-  then
-    echo "mkdir -p '$q'"
-  else
-    warn "$0: Unsupported file type: '$f'"
-  fi
+    q=$(echo "$f" | sed "s/'/'\\\\''/g")
+    echo "echo x - '$q'"
+    if [[ -f "$f" ]]
+    then
+        mkdirs "$q"
+        echo "sed 's/^X//' > '$q' << 'END-of-$q'"
+        sed 's/^/X/' < "$f"
+        echo "END-of-$q"
+    elif [[ -h "$f" ]]
+    then
+        mkdirs "$q"
+        t="$(readlink "$f" | sed "s/'/'\\\\''/g")"
+        echo "ln -s '$t' '$q'"
+    elif [[ -d "$f" ]]
+    then
+        echo "mkdir -p '$q'"
+    else
+        warn "$0: Unsupported file type: '$f'"
+    fi
 done
 
 echo exit
