@@ -5,16 +5,16 @@ set -e
 . echo.sh
 
 find_gitignore() (
-  while :
-  do
-    if [[ -d .git || -f .gitignore ]]
-    then
-      echo "$(env - PATH="$PATH" pwd)/.gitignore"
-      return 0
-    fi
-    [[ . -ef .. ]] && return 1
-    cd ..
-  done
+    while :
+    do
+        if [[ -d .git || -f .gitignore ]]
+        then
+            echo "$(env - PATH="$PATH" pwd)/.gitignore"
+            return 0
+        fi
+        [[ . -ef .. ]] && return 1
+        cd ..
+    done
 )
 
 name=$(basename "$0" .sh)
@@ -29,34 +29,34 @@ help="$usage
 file=
 while getopts :f:h opt
 do
-  case $opt in
-  (f)
-    file=$OPTARG
-    ;;
-  (g)
-    file=$(find_gitignore) || die 1 "$name: Not inside a git repository"
-    ;;
-  (h)
-    die 0 "$help"
-    ;;
-  (l)
-    file=
-    ;;
-  (:)
-    warn "$name: Option '$OPTARG' requires an argument"
-    die 100 "$usage"
-    ;;
-  (\?)
-    warn "$name: Unknown option '$OPTARG'"
-    die 100 "$usage"
-    ;;
-  esac
+    case $opt in
+    (f)
+        file=$OPTARG
+        ;;
+    (g)
+        file=$(find_gitignore) || die 1 "$name: Not inside a git repository"
+        ;;
+    (h)
+        die 0 "$help"
+        ;;
+    (l)
+        file=
+        ;;
+    (:)
+        warn "$name: Option '$OPTARG' requires an argument"
+        die 100 "$usage"
+        ;;
+    (\?)
+        warn "$name: Unknown option '$OPTARG'"
+        die 100 "$usage"
+        ;;
+    esac
 done
 shift $((OPTIND - 1))
 
 if [[ -z "$file" ]]
 then
-  file=$(env - PATH="$PATH" pwd)/.gitignore
+    file=$(env - PATH="$PATH" pwd)/.gitignore
 fi
 
 [[ -e "$file" ]] || touch "$file"
@@ -64,22 +64,22 @@ fi
 rm -f "$file{tmp}"
 for line
 do
-  echo "$line"
+    echo "$line"
 done | cat "$file" - | sort -u | grep . > "$file{tmp}"
 
 rm -f "$file{new}"
 {
-  grep -v '^!' < "$file{tmp}" || :
-  grep '^!' < "$file{tmp}" || :
+    grep -v '^!' < "$file{tmp}" || :
+    grep '^!' < "$file{tmp}" || :
 } > "$file{new}"
 rm -f "$file{tmp}"
 
 warn -n "Updating $file... "
 if cmp -s "$file" "$file{new}"
 then
-  warn 'Nothing to do!'
+    warn 'Nothing to do!'
 else
-  mv -f "$file{new}" "$file"
-  warn 'Done!'
+    mv -f "$file{new}" "$file"
+    warn 'Done!'
 fi
 rm -f "$file{new}"

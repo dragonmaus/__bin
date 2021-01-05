@@ -2,10 +2,10 @@
 #define STRERR_H
 
 struct strerr {
-  struct strerr *who;
-  const char *x;
-  const char *y;
-  const char *z;
+	struct strerr *who;
+	const char *x;
+	const char *y;
+	const char *z;
 };
 
 extern struct strerr strerr_sys;

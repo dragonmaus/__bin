@@ -1,8 +1,8 @@
 #include "buffer.h"
 
-  void
+	void
 buffer_seek(buffer *s, unsigned int len)
 {
-  s->n += len;
-  s->p -= len;
+	s->n += len;
+	s->p -= len;
 }
