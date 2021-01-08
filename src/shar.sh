@@ -4,6 +4,8 @@ set -e
 
 . echo.sh
 
+[[ $# -eq 0 ]] && die 1 "Usage: $0 file [file...]"
+
 cat << END
 # This is a shell archive. Save it in a file, remove anything before
 # this line, and then unpack it by entering "sh file". Note, it may
