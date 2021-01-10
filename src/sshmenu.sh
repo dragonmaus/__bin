@@ -2,7 +2,7 @@
 
 set -e
 
-host=$(sed -n 's/^Host \(.*\) # menu$/\1/p' < ~/.ssh/config | sort -u | dmenu)
+host=$(sed -n '/^# My local servers$/,/^# Public servers$/s/^Host \(.*\)$/\1/p' < ~/.ssh/config | sort -u | dmenu)
 [[ -n $host ]]
 
 exec st -e ssh "$host" "$@"
